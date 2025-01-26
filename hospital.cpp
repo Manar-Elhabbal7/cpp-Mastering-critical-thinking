@@ -14,6 +14,11 @@ void addPatient(){
     ss << sen;
     ss >> name >> status;
 
+    if(mp[sp].size()==5){
+        cout <<"Sorry this specialization is Full now.\n";
+        return;
+    }
+    
     if(status){
         mp[sp].push_front(name +" urgent");
     }
