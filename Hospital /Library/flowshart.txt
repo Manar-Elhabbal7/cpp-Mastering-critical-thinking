@@ -1,0 +1,84 @@
+
+
+## Library Management System Flowchart
+
+This flowchart provides an overview of the main processes in the library management system:
+
+
+Start
+  ↓
+Display Menu
+  ↓
+User Choice
+  ├─> **Add Book**
+  │   └─> Input Details
+  │   └─> Update Book List
+  │   └─> Return to Menu
+  │
+  ├─> **Search Books**
+  │   └─> Input Prefix
+  │   └─> Loop Through Books
+  │   └─> Display Matching Books
+  │   └─> Return to Menu
+  │
+  ├─> **Print Who Borrowed Books**
+  │   └─> Loop Through Borrow Records
+  │   └─> Display Borrow Records
+  │   └─> Return to Menu
+  │
+  ├─> **Print Library by ID**
+  │   └─> Sort Books by ID
+  │   └─> Display Books by ID
+  │   └─> Return to Menu
+  │
+  ├─> **Print Library by Name**
+  │   └─> Sort Books by Name
+  │   └─> Display Books by Name
+  │   └─> Return to Menu
+  │
+  ├─> **Print Books by Categories**
+  │   └─> Loop Through Books
+  │   └─> Display Books by Categories
+  │   └─> Return to Menu
+  │
+  ├─> **Add User**
+  │   └─> Input User Details
+  │   └─> Update User List
+  │   └─> Return to Menu
+  │
+  ├─> **User Borrow Book**
+  │   └─> Input User ID and Book Name
+  │   └─> Check Book Availability
+  │       ├─> Available?
+  │       │   ├─> Yes
+  │       │   │   └─> Update Borrow Records
+  │       │   │   └─> Decrease Book Quantity
+  │       │   │   └─> Display "Book Borrowed Successfully"
+  │       │   │   └─> Return to Menu
+  │       │   └─> No
+  │       │       └─> Display "Book Not Available"
+  │       │       └─> Return to Menu
+  │
+  ├─> **User Return Book**
+  │   └─> Input User ID and Book Name
+  │   └─> Check Borrow Record
+  │       ├─> Found?
+  │       │   ├─> Yes
+  │       │   │   └─> Update Borrow Records
+  │       │   │   └─> Increase Book Quantity
+  │       │   │   └─> Display "Book Returned Successfully"
+  │       │   │   └─> Return to Menu
+  │       │   └─> No
+  │       │       └─> Display "Book Not Found in Borrow Records"
+  │       │       └─> Return to Menu
+  │
+  ├─> **Print Users**
+  │   └─> Loop Through Users
+  │   └─> Display Users List
+  │   └─> Return to Menu
+  │
+  └─> **Exit**
+      ↓
+     End
+
+
