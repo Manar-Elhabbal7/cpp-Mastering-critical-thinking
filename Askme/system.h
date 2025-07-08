@@ -23,13 +23,11 @@ public:
         //done
         cout <<  "5: Delete Question\n";
         //on a thread or not on a thread mmmm
-        cout << "6: Ask Question\n";
+        cout <<  "6: Ask Question \n";
         //done
         cout << "7: List System Users\n";
-        //missunderstand
-        cout << "8: Feed\n";
         //done
-        cout << "9: Log Out\n" << RESET;
+        cout << "8: Log Out\n" << RESET;
         cout << YELLOW << "=========================\n" << RESET;
     }
     void choose(){
@@ -56,16 +54,12 @@ public:
                 }
                 //not tested
                 case 4:{
-                    cout  << "Enter Thread ID: ";
-                    int thread_id ; cin >> thread_id ;
+                    
                     cout  << "Enter Question ID: ";
                     int i_q ; cin >> i_q ;
-                    
-                    Thread::answer_thread(thread_id,i_q);
+                    Thread::answer_thread(i_q);
                     break;
                 }
-
-                break;
 
                 case 5:{
                     cout  << "Enter Question ID: ";
@@ -76,9 +70,9 @@ public:
                 
                 //not tested
                 case 6:{
-                    // cout <<"Enter question id to ask a thread or -1 to ask new question  : ";
-                    // int q_id ; cin >> q_id ;
-                    // Question::askMe(q_id);
+                    cout <<"Enter question id to ask a thread or -1 to ask new question  : ";
+                    int q_id ; cin >> q_id ;
+                    Question::askMe(q_id);
                     break;
                 }
                 
@@ -88,11 +82,8 @@ public:
                 break;
 
                 case 8:
-                //feed
-                break;
-
-                case 9:
                 UserAuth::logout();
+                
                 break;
 
                 default:
