@@ -3,7 +3,7 @@
 using namespace std;
 class Answer{
 public:
-    int  Q_id = 0;//may be t_id or q_id
+    int  Q_id = 0;
     string answer;
     
     Answer() = default;
