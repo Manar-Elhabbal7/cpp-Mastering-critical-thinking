@@ -12,7 +12,7 @@ public:
     
     void saveTofile() const{
         ofstream output("D:\\c++ vs\\Project Ask ME\\threads.txt", ios::app);
-        output << T_id << " " << Q_id << " " << user_id << " " << thread  << " " << '\n';
+        output << T_id << " " << Q_id << " " << user_id << " " << thread   << '\n';
     }
 
     static void display_Thread_and_answer(int q) {
@@ -41,57 +41,82 @@ public:
         }
     }
 
-    static void answer_thread(int t_id,int q_id) {
+    static void answer_thread(int q_id) {
+        ifstream input("D:\\c++ vs\\Project Ask ME\\threads.txt");
+        int t_id = -1; 
+        string line;
 
-        cout << "Enter your answer:\n";
-        string answer;cin >> answer;
+        while (getline(input, line)) {
+            istringstream iss(line);
+            int T_id, Q_id, user_id;
+            string thread;
+            iss >> T_id >> Q_id >> user_id >> thread;
+            if (Q_id == q_id) {
+                t_id = T_id;
+                break;
+            }
+        }
+        input.close();
+
+        if (t_id == -1) {
+            cout << RED << "Thread not found for this question ID.\n" << RESET;
+            return;
+        }
 
         bool answered = false;
-        ifstream input2("D:\\c++ vs\\Project Ask ME\\threadsans.txt");
-        string line;
-        while (getline(input2, line)) {
-            istringstream iss(line);
+        ifstream input2("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
+        string line2;
+        while (getline(input2, line2)) {
+            istringstream iss(line2);
             int T_id, Q_id;
-            string ans;
-            iss >> T_id >> Q_id >> ans;
+            string existing_ans;
+            iss >> T_id >> Q_id >> existing_ans;
             if (T_id == t_id && Q_id == q_id) {
                 answered = true;
                 break;
             }
         }
         input2.close();
-        if (!answered) {
-            ofstream output("D:\\c++ vs\\Project Ask ME\\threadsans.txt", ios::app);
-            output << t_id << " " << q_id << " " << answer << '\n';
-            output.close();
-            cout <<GREEN<< "Answer saved successfully.\n";
-        }
-        else{
-            cout <<"Warning: You have already answered this thread the answer will be updated.\n";
-            //save to temp file and delete the old file and rename the temp file
-            ifstream input("D:\\c++ vs\\Project Ask ME\\threadsans.txt");
+
+        string user_answer;
+        cout << "Enter your answer: ";
+        cin >> user_answer;
+
+        if (answered) {
+            cout << RED << "Warning: You already answered this question. The answer will be overwritten.\n" << RESET;
+
+            ifstream file_in("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
             ofstream temp("D:\\c++ vs\\Project Ask ME\\temp.txt");
-            string line;
-            while (getline(input, line)) {
-                istringstream iss(line);
+
+            string current_line;
+            while (getline(file_in, current_line)) {
+                istringstream iss(current_line);
                 int T_id, Q_id;
-                string ans;
-                iss >> T_id >> Q_id >> ans;
+                string old_answer;
+                iss >> T_id >> Q_id >> old_answer;
+
                 if (T_id == t_id && Q_id == q_id) {
-                    temp << t_id << " " << q_id << " " << answer << '\n';
-                }
-                else {
-                    temp << line << '\n';
+                    temp << t_id << " " << q_id << " " << user_answer << '\n';
+                } else {
+                    temp << current_line << '\n';
                 }
             }
-            input.close();
-            temp.close();
-            remove("D:\\c++ vs\\Project Ask ME\\threadsans.txt");
-            rename("D:\\c++ vs\\Project Ask ME\\temp.txt", "D:\\c++ vs\\Project Ask ME\\threadsans.txt");
-            cout <<GREEN<< "Answer saved successfully.\n";
 
+            file_in.close();
+            temp.close();
+
+            remove("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
+            rename("D:\\c++ vs\\Project Ask ME\\temp.txt", "D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
+
+        } else {
+            ofstream output("D:\\c++ vs\\Project Ask ME\\threads_ans.txt", ios::app);
+            output << t_id << " " << q_id << " " << user_answer << '\n';
+            output.close();
         }
+
+        cout << GREEN << "Answer saved successfully\n" << RESET;
     }
+
 
     static int getLastThreadId() {
         ifstream input("D:\\c++ vs\\Project Ask ME\\threads.txt");
