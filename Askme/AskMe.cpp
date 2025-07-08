@@ -7,7 +7,7 @@
 #include "system.h"
 using namespace std;
 
-//Author : The Goat 
+//Author : The Goat <3
 int main() {
     UserAuth auth;
     auth.Menu();
