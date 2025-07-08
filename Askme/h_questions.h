@@ -126,6 +126,8 @@ public:
         remove("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
         rename("D:\\c++ vs\\Project Ask ME\\temp_ta.txt", "D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
 
+        cout <<GREEN <<"Question deleted successfully\n" << RESET;
+
     }
 
 
