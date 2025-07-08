@@ -1,7 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 #include "h_answer.h"
-
+#include "userauth.h"
 
 class Question{
 public:
@@ -45,7 +45,7 @@ public:
     }
     static void delete_Question(int q_id){
 
-        //delete from questions
+        //delete from questions(done)
         ifstream input("D:\\c++ vs\\Project Ask ME\\Questions.txt");
         ofstream temp("D:\\c++ vs\\Project Ask ME\\temp_q.txt");
         string line ;
@@ -70,7 +70,7 @@ public:
         ofstream temp2("D:\\c++ vs\\Project Ask ME\\temp_a.txt");
         string line2 ;
     
-        while (getline(input, line2)) {
+        while (getline(input2, line2)) {
             istringstream iss(line2);
             int Q_id;
             string answer;
@@ -90,13 +90,14 @@ public:
         ofstream temp3("D:\\c++ vs\\Project Ask ME\\temp_t.txt");
         string line3 ;
     
-        while (getline(input, line3)) {
+        while (getline(input3, line3)) {
             istringstream iss(line3);
             int T_id, Q_id, user_id;
             string thread;
             iss >> T_id >> Q_id >> user_id >> thread;
             if(q_id != Q_id){
-                temp2<< T_id << " " << Q_id << user_id << " " << thread << '\n';
+                temp3 << T_id << " " << Q_id << " " << user_id << " " << thread << '\n';
+
             }
         }
         input3.close();
@@ -106,33 +107,29 @@ public:
         rename("D:\\c++ vs\\Project Ask ME\\temp_t.txt", "D:\\c++ vs\\Project Ask ME\\threads.txt");
 
         //delete from threadsans
-        ifstream input4("D:\\c++ vs\\Project Ask ME\\threadsans.txt");
+        ifstream input4("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
         ofstream temp4("D:\\c++ vs\\Project Ask ME\\temp_ta.txt");
         string line4 ;
     
-        while (getline(input, line4)) {
+        while (getline(input4, line4)) {
             istringstream iss(line4);
             int T_id, Q_id;
             string answer;
             iss >> T_id >> Q_id >> answer;
             if(q_id != Q_id){
-                temp2<< T_id << " " << Q_id << " " << answer << '\n';
+                temp4<< T_id << " " << Q_id << " " << answer << '\n';
             }
         }
         input4.close();
         temp4.close();
 
-        remove("D:\\c++ vs\\Project Ask ME\\threadsans.txt");
-        rename("D:\\c++ vs\\Project Ask ME\\temp_ta.txt", "D:\\c++ vs\\Project Ask ME\\threadsans.txt");
+        remove("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
+        rename("D:\\c++ vs\\Project Ask ME\\temp_ta.txt", "D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
 
     }
 
 
     static void answer_question(int q_id){
-        if(q_id  == -1) {
-            
-        }
-
         bool found = false;
         ifstream input("D:\\c++ vs\\Project Ask ME\\Questions.txt");
         string line , ques;
@@ -294,7 +291,7 @@ public:
 
             inputThread.close();
 
-            ifstream ans("D:\\c++ vs\\Project Ask ME\\threadsans.txt");
+            ifstream ans("D:\\c++ vs\\Project Ask ME\\threads_ans.txt");
             string lineAns;
             while (getline(ans, lineAns)) {
                 istringstream iss(lineAns);
@@ -310,27 +307,28 @@ public:
         //System::showMenu();
     }
 
-    // static void askMe(int q_id){
-    //     if(q_id == -1){
-    //         //add new question 
-    //         cout << "Enter the question : ";
-    //         string question ; cin >> question;
-    //         int q_id = Question::getLastQuestionId();
-    //         int user_id = UserAuth::id;
-    //         Question question1(q_id,user_id,question);
-    //         question1.saveTofile();
-    //         //System::showMenu();
-    //     }
-    //     else{
-    //         cout <<"Enter the thread : ";
-    //         string th ; cin >> th;
-    //         int t_id = Thread::getLastThreadId();
-    //         int q_id = q_id;
-    //         int user_id = UserAuth::id;
-    //         Thread thread(t_id,q_id,user_id,th);
-    //         thread.saveTofile();
-    //         //System::showMenu();
-    //     }
-    // }
+    static void askMe(int q_id){
+        
+        if(q_id == -1){
+            cout << "Enter your question : ";
+            string q ; cin >> q;
+            int q_id = Question::getLastQuestionId();
+            //user id 
+            int u_id = UserAuth::id;
+            Question question(q_id, u_id, q);
+            question.saveTofile();
+            cout << GREEN << "Question saved successfully\n" << RESET;
+        }
+        else{
+            cout <<"Enter Your thread question : ";
+            string q ; cin >> q;
+            int t_id = Thread::getLastThreadId();
+            //user id 
+            int u_id = UserAuth::id;
+            Thread thread(t_id, q_id, u_id, q);
+            thread.saveTofile();
+            cout << GREEN << "Question saved successfully\n" << RESET;
+        }
+    }
 
 };
